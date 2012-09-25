@@ -398,45 +398,45 @@
 ******exerciceII.5********
 *************************/
 
-
-int main()
-{
-
-    //Variables & constantes
-    const float tarifJour = 38.50;
-    const float tarifNuit = 45.75;
-    int heureDeb,heureFin;
-    float gainJour,gainNuit,gainTotal;
-
-
-    //Début Fonction
-    do {
-        printf("Heure début = ");
-        scanf("%d",&heureDeb);
-    } while (!(heureDeb>=8 && heureDeb<=18));
-
-    do {
-        printf("Heure fin = ");
-        scanf("%d",&heureFin);
-        if ((heureFin >= 0)&&(heureFin<=2)) heureFin = heureFin + 24;
-    } while (!(heureFin <= heureDeb +8 ));                                 //pbm ici
-
-    if (heureFin <=19) {
-        gainJour = (heureFin - heureDeb) * tarifJour;
-        gainNuit = 0;
-    } else {
-        gainJour = (19 - heureDeb) * tarifJour;
-        gainNuit = (heureFin - 19) * tarifNuit;
-    }
-
-    gainTotal = gainJour + gainNuit;
-    printf("Gain journalier pour l'ouvrier : %f ",gainTotal);
-
-
-
-    return 0;
-
-}
+//
+//int main()
+//{
+//
+//    //Variables & constantes
+//    const float tarifJour = 38.50;
+//    const float tarifNuit = 45.75;
+//    int heureDeb,heureFin;
+//    float gainJour,gainNuit,gainTotal;
+//
+//
+//    //Début Fonction
+//    do {
+//        printf("Heure début = ");
+//        scanf("%d",&heureDeb);
+//    } while (!(heureDeb>=8 && heureDeb<=18));
+//
+//    do {
+//        printf("Heure fin = ");
+//        scanf("%d",&heureFin);
+//        if ((heureFin >= 0)&&(heureFin<=2)) heureFin = heureFin + 24;
+//    } while (!(heureFin <= heureDeb +8 ));                                 //pbm ici
+//
+//    if (heureFin <=19) {
+//        gainJour = (heureFin - heureDeb) * tarifJour;
+//        gainNuit = 0;
+//    } else {
+//        gainJour = (19 - heureDeb) * tarifJour;
+//        gainNuit = (heureFin - 19) * tarifNuit;
+//    }
+//
+//    gainTotal = gainJour + gainNuit;
+//    printf("Gain journalier pour l'ouvrier : %f ",gainTotal);
+//
+//
+//
+//    return 0;
+//
+//}
 
 ///*************************
 //******exerciceII.6********
@@ -603,36 +603,92 @@ int main()
 ///*************************
 //******exerciceIV.1********
 //*************************/
-//
-//
+
+
 //int main()
 //{
 //
 //    //Variables & constantes
-//
+//    char tabCh[70];                                   //tableau mémorisant les caractères
+//    char ch;                                          //caractère courant
+//    int nbc;                                          //nombre de caractère dans le tableau
+//    int compteur;                                     //variable de comptage
+////    int temp;
 //
 //
 //    //Début Fonction
+//    printf("Taper une suite de caractères terminée par un point :\n");
+//    nbc = 0;
+//    do {
+//        ch = getchar();                    //recupération des caractères
+//        if (ch != '.'){
+//            tabCh[nbc] = ch;
+//            nbc = nbc +1;
+//        }
+//    } while (ch != '.');
+//
+//    printf("nombre de caractère = %d",nbc);
+//    //scanf("%d",&temp);        test du nombre de caractère
+//
+//
+//    printf("\n Affichage caractères lus à l'endroit puis à l'envers \n");
+//
+//    for (compteur = 0;compteur<=nbc;compteur++){
+//        printf("%c \n",tabCh[compteur]);
+//    }
+//
+//    for (compteur=nbc;compteur>=0;compteur--) {
+//        printf("%c \n",tabCh[compteur]);
+//    }
+//
+//
 //
 //    return 0;
 //
 //}
-//
-///*************************
-//******exerciceIV.2********
-//*************************/
-//
-//
-//int main()
-//{
-//
-//    //Variables & constantes
-//
-//
-//
-//    //Début Fonction
-//
-//    return 0;
-//
-//}
-//
+
+
+/*************************
+******exerciceIV.2********
+*************************/
+
+
+int main() {
+
+    //Variables & constantes
+    char car;
+    int i,I;
+    int tabCar[26];
+
+
+    //Début Fonction
+    printf("Frappez une suite de lettres terminée par un point :");
+
+
+
+        for (i=0; i<=25; i++)  {
+            do {
+            tabCar[I]=0;
+            car = getchar();
+            if (car>='A' && car<='Z') {
+                //i= ord(car)-ord('A');
+                I= car-'A';
+
+                tabCar[I]=tabCar[I]+1;
+            }
+        } while (car != '.');
+
+    }
+
+    printf("Nombre total de caractères dans le texte : \n");
+
+    for (car ='A';car<='Z';car++) {
+        I = car-'A';
+        printf("Nombre total de '%c' = %d \n",car,tabCar[I]);
+    }
+
+
+    return 0;
+
+}
+
