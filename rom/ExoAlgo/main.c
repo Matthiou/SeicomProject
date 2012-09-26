@@ -8,7 +8,7 @@
 //include pour tous les exercices
 #include <stdio.h>
 #include <stdlib.h>
-
+//#include <conio.h>
 
 // décommenter le main voulu pour voir le résultat du code
 
@@ -653,42 +653,186 @@
 *************************/
 
 
-int main() {
+//int main()
+//{
+//
+//    //Variables & constantes
+//    char car;
+//    int i,I;
+//    int tabCar[26];
+//
+//
+//    //Début Fonction
+//    printf("Frappez une suite de lettres terminée par un point :");
+//
+//
+//
+//    for (i=0; i<=25; i++)
+//    {
+//        tabCar[i]=0;
+//    }
+//    do
+//    {
+//
+//        car = getche();                                                  // en linux tester getchar();
+//        if (car>='A' && car<='Z')
+//        {
+//
+//            I=car-'A';
+//
+//            tabCar[I]=tabCar[I]+1;
+//
+//        }
+//    }
+//    while (car != '.');
+//
+//
+//
+//    printf("Nombre total de caractères dans le texte : \n");
+//
+//    for (car ='A'; car<='Z'; car++)
+//    {
+//
+//        I=car-'A';
+//        printf("Nombre total de '%c' = %d \n",car,tabCar[I]);
+//    }
+//
+//
+//    return 0;
+//
+//}
+
+/********************************************************
+*********Exercice pilindrome*****************************
+********************************************************/
+
+
+
+
+//int main()
+//{
+//
+//    //Variables & constantes
+//    int nbc;                        // nombre de caractères
+//    char tabCh[10];                 // tableau pour stocker les caractères
+//    int i;                          // compteur
+//    char ch;                        // caractère courant
+//    int testCh;                     // variable booléen vrai=0 ou faux=1
+//
+//
+//    //Début Fonction
+//    printf("Entrez un mot et terminez par un point! ");
+//    nbc=0;
+//
+//    do
+//    {
+//        ch = getche();                      //recupération des caractères
+//        if (ch != '.')
+//        {
+//            tabCh[nbc] = ch;                // on enregistre le caractère dans le tableau en commençant par la case 0
+//            nbc = nbc +1;                   // on incrémente le nombre de caractère
+//        }
+//    }
+//    while (ch != '.');
+//
+//
+//    for (i=0; i<nbc; i++)
+//    {
+//        if (tabCh[i] == tabCh[nbc-1-i])
+//        {
+//            testCh=0;                                  // si la condition est remplis la variable testCh ppv vrai
+//        }
+//        else testCh=1;                                 // sinon testCh ppv faux
+//    }
+//    if (testCh==0) printf(" Votre mot est bien un palindrome \n");
+//    else printf(" ce mot n'est pas un palindrome \n");
+//
+//
+//
+//    return 0;
+//
+//}
+
+
+/**************************************************************
+******** Exercice : l'utilisateur doit rentrer ****************
+******des valeurs différentes de celle d'1 tableau.************
+******** contenant {2,3,5,7,11,13,17,19,23} *******************
+**************************************************************/
+
+
+
+int main()
+{
 
     //Variables & constantes
-    char car;
-    int i,I;
-    int tabCar[26];
+    int nbPremier[9] = {2,3,5,7,11,13,17,19,23};
+    int numero,i;
+    int temp;                   //variable bool
+
 
 
     //Début Fonction
-    printf("Frappez une suite de lettres terminée par un point :");
+
+    printf(" Bonjour, veuillez rentrer un nombre différent d'un nombre premier \n");
+
+
+        do {
+
+            numero = getchar();                     //getch() sous windows
+            if (numero<0) printf(" non il faut un nombre positif ! ");
+
+        } while (numero<0);
 
 
 
-        for (i=0; i<=25; i++)  {
+//            for (i=0;i<9;i++){
+//
+//                if (numero!=nbPremier[i]) temp=0;
+//                else temp=1;
+//            }
+
             do {
-            tabCar[I]=0;
-            car = getchar();
-            if (car>='A' && car<='Z') {
-                //i= ord(car)-ord('A');
-                I= car-'A';
+                i=0;
+                if (numero!=nbPremier[i]) temp=0;
+                else temp=1;
+                i++;
 
-                tabCar[I]=tabCar[I]+1;
-            }
-        } while (car != '.');
+            } while (numero!=nbPremier[i]);
 
-    }
 
-    printf("Nombre total de caractères dans le texte : \n");
 
-    for (car ='A';car<='Z';car++) {
-        I = car-'A';
-        printf("Nombre total de '%c' = %d \n",car,tabCar[I]);
-    }
+//            if (temp==0) printf(" c'est un nombre premier! recommencez! ");
+//            else printf(" c'est bon ");
+
+
 
 
     return 0;
 
 }
 
+
+
+
+/**************************************************************
+******** Exercice : l'utilisateur doit rentrer ****************
+******* des valeurs différentes de celle qu'il a **************
+**************** rentrées précédemment ************************
+**************************************************************/
+
+//
+//
+//int main()
+//{
+//
+//    //Variables & constantes
+//
+//
+//
+//    //Début Fonction
+//
+//    return 0;
+//
+//}
+//
