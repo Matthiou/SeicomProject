@@ -762,77 +762,102 @@
 
 
 
-int main()
-{
-
-    //Variables & constantes
-    int nbPremier[9] = {2,3,5,7,11,13,17,19,23};
-    int numero,i;
-    int temp;                   //variable bool
-
-
-
-    //Début Fonction
-
-    printf(" Bonjour, veuillez rentrer un nombre différent d'un nombre premier \n");
-
-
-        do {
-
-            numero = getchar();                     //getch() sous windows
-            if (numero<0) printf(" non il faut un nombre positif ! ");
-
-        } while (numero<0);
-
-
-
-//            for (i=0;i<9;i++){
+//int main()
+//{
 //
-//                if (numero!=nbPremier[i]) temp=0;
-//                else temp=1;
+//    //Variables & constantes
+//    int nbPremier[9] = {2,3,5,7,11,13,17,19,23};
+//    int numero,i;
+//    int temp;                   //variable bool
+//
+//
+//
+//    //Début Fonction
+//
+//    printf(" Bonjour, veuillez rentrer un nombre différent d'un nombre premier \n");
+//
+//
+//        do {
+//
+//            scanf("%int",&numero);
+//            if (numero<0) printf(" non il faut un nombre positif ! ");
+//            temp=0;
+//            for (i=0;i<9;i++){
+//            if (numero==nbPremier[i]) temp=1;
+//
 //            }
-
-            do {
-                i=0;
-                if (numero!=nbPremier[i]) temp=0;
-                else temp=1;
-                i++;
-
-            } while (numero!=nbPremier[i]);
-
-
-
-//            if (temp==0) printf(" c'est un nombre premier! recommencez! ");
-//            else printf(" c'est bon ");
-
-
-
-
-    return 0;
-
-}
+//
+//            if (temp==1) printf("non! ceci est un nombre premier! \n");
+//            else printf("Bravo! ");
+//
+//        } while (numero<0 || temp==1);
+//
+//
+//    return 0;
+//
+//}
 
 
 
 
 /**************************************************************
 ******** Exercice : l'utilisateur doit rentrer ****************
-******* des valeurs différentes de celle qu'il a **************
+******* 10 valeurs différentes de celle qu'il a **************
 **************** rentrées précédemment ************************
 **************************************************************/
 
-//
-//
-//int main()
-//{
-//
-//    //Variables & constantes
-//
-//
-//
-//    //Début Fonction
-//
-//    return 0;
-//
-//}
-//
+
+
+int main() {
+
+    //Variables & constantes
+    int tabNombre[10];          // tableau pour stocker les valeurs entrées
+    int nombre,i,j;             // comptage
+    int nbv=0;                  // nombre de valeur
+    int temp;                   // bool
+
+
+
+
+
+    //Début Fonction
+
+    printf(" Entrez 10 valeurs différentes en validant chaque valeur par la touche entrée \n");
+
+
+    for (i=0; i<10; i++) {                                       // Boucle principale
+
+
+        do {
+            printf(" Valeur %d : ",i+1);
+            scanf("%d",&nombre);
+            tabNombre[i]=nombre;
+            temp=1;
+
+            if (i!=0) {                                               // Si ce n'est pas la première exécution du code
+                for (j=1; j<=nbv; j++) {                              // Boucle for pour vérifier si la valeur rentrée
+                    if (nombre==tabNombre[j-1]) temp=0;               // est différente d'une des valeurs du tableau.
+                }                                                     // temp prend pour valeur 0 si la condition est vraie
+                if (temp==0) {
+                    printf(" La valeur doit être différente d'une des valeurs entrées précédemment \n");
+                }
+            }
+
+        } while (temp==0);                                  // on execute la boucle do/while tant que
+                                                            // la condition précédente est vrai
+
+    nbv=nbv+1;                                              // on incrémente le nombre de valeur
+
+    }               // fin de boucle for
+
+
+    printf("vous avez entrez les valeurs : \n");                // recap des valeurs entrées
+    for (i=0; i<10; i++) {
+        printf(" %d ",tabNombre[i]);
+    }
+
+
+    return 0;
+
+}
+
