@@ -1,99 +1,60 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include "fonction.h"
 //#include <conio.h>
+
 
 
 int main()
 {
-    /*environnement*/
-    //char lettre[6]={'f','e','d','c','b','a'};
-    int i;
-    char choixCase;
-
-
-    /*algo*/
-
-    //ensemble de boucles pour créer la partie haut du tableau
-    //début
-//    for (i=0;i<6;i++){
-//        printf("  %c  ",lettre[i]);
-//    }
-
-    for (i='f'; i>='a'; i--)
-    {
-        printf("  %c  ",i);
-    }
+    int j1[6]={4,4,4,4,4,4};                      //tableau provisoir pour les cases du joueur 1
+    int j2[6]={4,4,4,4,4,4};                      //tableau provisoir pour les cases du joueur 2
+    int i,val;                                              // variable pour les compteurs et boucles for
+    int total=48,totalj1=0,totalj2=0;                   //variable pour le comptage du total des billes et aussi par joueurs
 
 
 
 
-    printf("\n");
+    val=0;
+    i=0;
+    do {
 
+        for (i=0;i<6;i++){
+        plateauJeu(&j1[i],&j2[i]);
+        selectionCase(val);
+        val=changeJoueur(val);
+        }
 
-    for (i=1; i<=6; i++)
-    {
-        printf("+--+ ");
-    }
-
-    printf("\n");
-
-    for (i=1; i<=6; i++)
-    {
-        printf("|  | ");
-    }
-
-    printf("\n");
-
-    for (i=1; i<=6; i++)
-    {
-        printf("+--+ ");
-    }
-
-    printf("\n");
-    //fin partie haute du tableau
-
-    //début partie basse du tableau
-    for (i=1; i<=6; i++)
-    {
-        printf("+--+ ");
-    }
-
-    printf("\n");
-
-    for (i=1; i<=6; i++)
-    {
-        printf("|  | ");
-    }
-
-    printf("\n");
-
-    for (i=1; i<=6; i++)
-    {
-        printf("+--+ ");
-    }
-
-    printf("\n");
-
-    for (i='A'; i<='F'; i++)
-    {
-        printf("  %c  ",i);
-    }
-
-    printf("\n");
-
-
-    //test de la valeur entrée par le joueur
-    printf("Choisir une case entre a et f ou entre A et F \n");
-    do
-    {
-        choixCase = getchar_unlocked();                 // comme getche() mais pas besoin de la lib conio.h
-    }
-    while ((!(choixCase<='f' && choixCase>='a'))&&(!(choixCase<='F' && choixCase>='A')));
-
-    printf("Case %c",choixCase);        //Vérification de la valeur
-
+    } while (totalj1>total/2 || totalj2>total/2);            //Boucle pour que le jeu continue tant que
+                                                                //l'un des 2 joueurs n'a pas obtenu au moins la moitiée
+                                                                // du total des billes.
     return 0;
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
