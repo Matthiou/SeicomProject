@@ -4,7 +4,20 @@
 
 
 
-/** affichage du plan de jeu **/
+/** affichage du plan de jeu **
+*******************************
+  f     e     d     c     b     a
++---+ +---+ +---+ +---+ +---+ +---+
+| 5 | | 4 | | 3 | | 2 | | 1 | | 0 |
++---+ +---+ +---+ +---+ +---+ +---+
++---+ +---+ +---+ +---+ +---+ +---+
+| 6 | | 7 | | 8 | | 9 | |10 | |11 |
++---+ +---+ +---+ +---+ +---+ +---+
+  A     B     C     D     E     F
+
+tableau de 12 cases représentant les emplacements ou sont stocké les billes case de 0 à 11
+*******************************************************************************************/
+
 
 void plateauJeu(int *x,int *y)
 {
@@ -21,7 +34,7 @@ void plateauJeu(int *x,int *y)
 
     for (i='f'; i>='a'; i--)
     {
-        printf("  %c  ",i);
+        printf("  %c   ",i);
     }
 
     printf("\n");
@@ -33,11 +46,14 @@ void plateauJeu(int *x,int *y)
 
     printf("\n");
 
-    for (i=0; i<6; i++)
+    for (i=5; i>=0; i--)
     {
-        printf("| %d | ", x[i]);
+        if (x[i]>9) printf("| %d| ", x[i]);             // condition pour éviter le décallage du tableau en cas de
+                                                        // nombre a 2 chiffres
+        else printf("| %d | ", x[i]);
     }
 
+    printf(" Total joueur 1 = %d",y[0]);
     printf("\n");
 
     for (i=1; i<=6; i++)
@@ -58,11 +74,15 @@ void plateauJeu(int *x,int *y)
 
     printf("\n");
 
-    for (i=0; i<6; i++)
+    for (i=6; i<12; i++)
     {
-        printf("| %d | ",y[i]);
-    }
+        if (x[i]>9) printf("| %d| ", x[i]);
 
+        else printf("| %d | ", x[i]);
+
+
+    }
+    printf(" Total joueur 2 = %d",y[1]);
     printf("\n");
 
     for (i=1; i<=6; i++)
@@ -74,7 +94,7 @@ void plateauJeu(int *x,int *y)
 
     for (i='A'; i<='F'; i++)
     {
-        printf("  %c  ",i);
+        printf("  %c   ",i);
     }
 
     printf("\n");
