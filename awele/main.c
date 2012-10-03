@@ -6,28 +6,26 @@
 
 
 int main() {
-    int j[12]= {4,4,4,4,4,4,4,4,4,4,4,4};                   //tableau provisoir pour les cases du joueur 1(de 0 à 5)
-                                                                //tableau provisoir pour les cases du joueur 2(de 6 à 11)
-    int val;
-    char choixCase;                                              // variable pour les compteurs et boucles for
-    int total=48;                    //variable pour le comptage du total des billes et aussi par joueurs
-    int totalJ[2]={0,0};
 
-    int finTour;                                            // variable qui donne le numéro de la case du tableau par lequel
-    // le tour s'est terminé
+    int j[12]={4,4,4,4,4,4,4,4,4,4,4,4};                    //tableau provisoir pour les cases du plateau(de 0 à 11)
 
-    val=1;
-    //i=0;
+    int val=1;
+    int total=48;           //variable total des billes sur le plateau
+    int totalJ[2]={0,0};    // tableau pour stocker le nombre de billes récupérées par joueur = score
+
+    int finTour;            // variable qui donne le numéro de la case du tableau par lequel
+                            // le tour s'est terminé
+
+
+    /** Début fonction **/
     do {
-        plateauJeu(j,totalJ);
+        plateauJeu(j,totalJ);                       //appel des fonctions
         val=changeJoueur(val);
-        choixCase=selectionCase(val);
-        finTour=jouerCoup(val, choixCase, j);
-        billeGagne(finTour,j,totalJ);
-
+        finTour=jouerCoup(val, j);
+        billeGagne(val, finTour, j, totalJ);
     } while (!((totalJ[0]>=total/2) || (totalJ[1]>=total/2)));      //Boucle pour que le jeu continue tant que
-                                                                //l'un des 2 joueurs n'a pas obtenu au moins la moitiée
-                                                                // du total des billes.
+                                                                    //l'un des 2 joueurs n'a pas obtenu au moins la moitiée
+                                                                    // du total des billes.
     return 0;
 }
 

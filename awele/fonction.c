@@ -6,15 +6,20 @@
 
 /**fonction changement de joueur**/
 
-int changeJoueur(int x)
-{
-    int val;                            //variable a retourner booléen 1 ou 0
+int changeJoueur(int x) {
+    /** Variables locales **/
 
-    if (x==0) val=1;                    // si c'est le joueur un qui vient de jouer
-                                        // alors  la valeur change c'est au joueur 2.
-    else val=0;                         // si c'est le joueur un qui vient de jouer
-                                        // alors c'est au tour du joueur 1
+    int val;             //variable a retourner booléen 1 ou 0
 
+
+
+
+    /** Début fonction **/
+
+    if (x==0) val=1;    // si c'est le joueur un qui vient de jouer
+                        // alors  la valeur change c'est au joueur 2.
+    else val=0;         // si c'est le joueur un qui vient de jouer
+                        // alors c'est au tour du joueur 1
 
     return val;
 
@@ -23,15 +28,16 @@ int changeJoueur(int x)
 
 
 
-/** fonction demandant quelle case le joueur selectionne et renvoi le retourne la valeur **/
+/** fonction demandant quelle case le joueur selectionne et retourne la valeur **/
 
-char selectionCase(int x)
-{
-    //Variable local
+char selectionCase(int x) {
+    /** Variable local **/
     char car;
 
 
-    //fonction
+
+
+    /** Début fonction **/
     if (x==0) {
         do {
 
@@ -55,109 +61,122 @@ char selectionCase(int x)
 
 /** Fonction qui permet de répartir la main du joueur dans les autres cases**/
 
-int jouerCoup(int v, char w, int *x)           // paramètres v=bool permet de savoir si c'est au joueur 1 ou 2,
-{                                               // w est le caractère renvoyé par la fonction selectionCase()
-                                                // x est un pointeur prenant pour paramètre le tableau représentant les
-                                                // valeurs de chaque case(permet de modifier les valeurs du tableau défini
-                                                // dans main()
-    int choixCase=0;
-    int valCase=0;
-    int i=0;
-    int arretCase;                                             //dernière case variable à renvoyer
+int jouerCoup(int v, int *x) {
+    /** paramètres v=booléen permet de savoir si c'est au joueur 1 ou 2,
+    // x est un pointeur prenant pour paramètre le tableau représentant les
+    // valeurs de chaque case(permet de modifier les valeurs du tableau défini
+    // dans main() **/
 
-    if (v==0){
-    choixCase=5-('f'-w);                                        //calcul le numéro de la case qui a été jouée
-    valCase=x[choixCase];                                       //nombre de bille qui était dans la case
-    if (valCase>11) valCase=valCase+2;                         // si le nombre de bille est > a 12 alors on rajoute
 
-    else if (valCase>23) valCase=valCase+3;                    // 1 car la case jouée par le joueur ne reprend pas de billes
+    /** Variables locales **/
+    char w;
+    int choixCase=0;            // numéro de case sélectionnée par le joueur (de 0 à 11)
+    int valCase=0;              // nombre de bille dans la case sélectionnée
+    int i=0,j=0;                // compteur
+    int arretCase;              //dernière case variable à renvoyer
 
-            for(i=choixCase;i<choixCase+valCase;i++){           // pour i ppv le numéro de la case du tableau jouée jusqu'au
-            if (i<12) {                                         // numéro de la case + le nombre de bille de cette case
-                x[i+1]=x[i+1]+1;                               // la case suivante(de celle jouée) ppv la case + 1
+
+    /** Début fonction **/
+    if (v==0) {
+        do {                                    //boucle tant que la case ne contient pas de bille (==0)
+            w=selectionCase(v);
+            choixCase=5-('f'-w);                //calcul le numéro de la case qui a été jouée
+        } while (x[choixCase]==0);
+
+        valCase=x[choixCase];                       //nombre de bille qui était dans la case
+        if (valCase>11) valCase=valCase+1;          // si le nombre de bille est > a 12 alors on se décalle d'un case(case d'origine ne compte)
+
+        else if (valCase>23) valCase=valCase+2;         // 1 car la case jouée par le joueur ne reprend pas de billes
+
+
+        for(i=choixCase; i<choixCase+valCase; i++) {        // pour i ppv le numéro de la case du tableau jouée jusqu'au
+            if (i<11) {                                     // numéro de la case + le nombre de bille de cette case
+                x[i+1]=x[i+1]+1;                     // la case "suivante"(i+1) (de celle jouée) ppv le nombre de bille de la case + 1
+             }else if (i>=11){                      // si on arrive en bout de tableau
+                i=choixCase+valCase;                // on arrete la première boucle for
+                valCase=valCase-(11-choixCase);     // on change la valeur en retirant le nombre de billes déjà posées
+                for (j=0;j<valCase;j++){            // on entame un nouvelle boucle for
+                x[j]=x[j]+1;                        // on rajoute une bille dans chaque case
+                }
             }
-            else if (i>=12 && i<24){                            // si on atteint les limites du tableau[12] on repart
-                x[i-12]=x[i-12]+1;                              //  a a la case 0 du tableau
-            }
-            else if (i>=24 && i<26) {                           // etc...
-                x[i-24]=x[i-24]+1;
-            }
-            x[choixCase]=0;
-            }
+
+        }
+    x[choixCase]=0;                      // la case jouée à l'origine n'a plus de billes ppv 0
+
     }
 
 
     else {
-    choixCase=6+(w-'A');                                    // même principe que plus haut mais on rajoute 6
-    valCase=x[choixCase];                                   // car on joue sur la partie base du tableau (joueur2)
-    if (valCase>=12) valCase=valCase+2;
-    else if (valCase>=24) valCase=valCase+3;
+        do {
+            w=selectionCase(v);
+            choixCase=6+(w-'A');                                // même principe que plus haut mais on rajoute 6
+        } while (x[choixCase]==0);                              // car on joue sur la partie basse du tableau (joueur2)
+                                                                // A voir du coup si c'est possible de simplifier
+        valCase=x[choixCase];
+        if (valCase>11) valCase=valCase+1;
+        else if (valCase>23) valCase=valCase+2;
 
-        for(i=choixCase;i<choixCase+valCase;i++){
-            if (i<12) {
+
+
+        for(i=choixCase; i<choixCase+valCase; i++) {
+            if (i<11) {
                 x[i+1]=x[i+1]+1;
-                //if (x[choixCase+valCase]==2 || )
+            } //else if (i==11) x[i]=
+             else if (i>=11){
+                i=choixCase+valCase;
+                valCase=valCase-(11-choixCase);
+                for (j=0;j<valCase;j++){
+                x[j]=x[j]+1;
+                }
             }
-            else if (i>=11 && i<24){
-                x[i-12]=x[i-12]+1;
-            }
-            else if (i>=24 && i<26) {
-                x[i-24]=x[i-24]+1;
-            }
-        x[choixCase]=0;
+
+
         }
+    x[choixCase]=0;
+
     }
 
 
-    if (choixCase+valCase<12) arretCase=choixCase+valCase;
-    else if (choixCase+valCase>=12 && choixCase+valCase<24) arretCase=choixCase+valCase-12;
-    else if (choixCase+valCase>=24) arretCase=choixCase+valCase-24;
+    if (choixCase+valCase<12) arretCase=choixCase+valCase;                                      // calcul pour renvoyer
+    else if (choixCase+valCase>=12 && choixCase+valCase<24) arretCase=choixCase+valCase-12;     // le numéro de la dernière
+    else if (choixCase+valCase>=24) arretCase=choixCase+valCase-24;                             // ou des billes ont été posées
 
     return arretCase;
 }
 
 
 /** fonction pour définir combien de billes sont récupérées par le joueur **/
-void billeGagne(int w,int *x, int *y)
-{
-    int i;
 
-if (x[w]==2 || x[w]==3){                    /**marche pas A revoir !! **/
-
-    if (w<6 && w>=0){
-        for (i=w;i>=0;i--){
-            do {
-
-                y[1]=y[1]+x[i];             //gain joueur 2
-                x[i]=0;
+void billeGagne(int v, int w,int *x, int *y) {
+    /** Variables locales **/
+    int i;                              //compteur
 
 
 
-            } while (x[i]==2 || x[i]==3);
+    /** Début fonction **/
+    if (v==1) {                                 // si c'est le joueur 2 qui vient de jouer
+        if (w<6 && w>=0) {                      // si la dernière case était dans le camp de joueur 1
 
+            for (i=w; i>=0; i--) {              // alors boucle for (case du tableau a 0), on vérifie la valeur des cases
+                while (x[i]==2 || x[i]==3) {    // tant que les cases opv 2 ou 3
+                    y[1]=y[1]+x[i];             // on incrémente le score du joueur du nombre de billes dans les cases.
+                    x[i]=0;                     // chacune des cases passe à 0.
+                }
+            }
+        }                                   /** marche pas tout le temps A revoir !! **/
+    }
+
+    if (v==0) {                                 // si c'est le joueur 1 qui vient de jouer
+        if (w<12 && w>=6) {                     // si la dernière case était dans le camp de joueur 2
+
+            for (i=w; i>=6; i--) {              // pour toute les cases précédentes on vérifie le nombre de bille
+                while (x[i]==2 || x[i]==3) {    // et si = 2 ou 3 alors on rajoute au nombre de point total du joueur
+                    y[0]=y[0]+x[i];
+                    x[i]=0;
+                }
+            }
         }
     }
-
-
-    if (w<12 && w>=6){
-        for (i=w;i>=6;i--){
-            do {
-
-                y[0]=y[0]+x[i];               //gain joueur 1
-                x[i]=0;
-
-            } while (x[i]==2 || x[i]==3);
-
-        }
-
-
-
-    }
-
-
-    }
-
-
-
 
 }
+

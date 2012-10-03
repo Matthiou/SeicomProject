@@ -21,14 +21,16 @@ tableau de 12 cases représentant les emplacements ou sont stocké les billes ca
 
 void plateauJeu(int *x,int *y)
 {
-    /*environnement*/
+    /** Variables locales **/
     int i;
 
 
 
-    /*algo*/
-    //ensemble de boucles pour créer la partie haut du tableau
-    //début
+
+
+    /** Début **/
+    // Ensemble de boucles pour créer la partie haut du tableau
+
     printf("\033c" );
 
 
@@ -98,17 +100,6 @@ void plateauJeu(int *x,int *y)
     }
 
     printf("\n");
-
-
-//    //test de la valeur entrée par le joueur
-//    printf("Choisir une case entre a et f ou entre A et F \n");
-//    do
-//    {
-//        choixCase = getchar_unlocked();                 // comme getche() mais pas besoin de la lib conio.h
-//    }
-//    while ((!(choixCase<='f' && choixCase>='a'))&&(!(choixCase<='F' && choixCase>='A')));
-//
-//    printf("Case %c",choixCase);        //Vérification de la valeur
 
 
 }
