@@ -5,7 +5,7 @@
 
 
 
-int main() {
+int main(int argc, char *argv[]) {
 
     int j[12]={4,4,4,4,4,4,4,4,4,4,4,4};                    //tableau provisoir pour les cases du plateau(de 0 à 11)
 
