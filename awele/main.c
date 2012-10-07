@@ -1,31 +1,45 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "fonction.h"
-//#include <conio.h>
+
 
 
 
 int main(int argc, char *argv[]) {
 
     int j[12]={4,4,4,4,4,4,4,4,4,4,4,4};                    //tableau provisoir pour les cases du plateau(de 0 à 11)
-
+    char joueur1[20] = "Joueur 1";
+    char joueur2[20] = "Joueur 2";
     int val=1;
     int total=48;           //variable total des billes sur le plateau
     int totalJ[2]={0,0};    // tableau pour stocker le nombre de billes récupérées par joueur = score
 
     int finTour;            // variable qui donne le numéro de la case du tableau par lequel
                             // le tour s'est terminé
-
+    int mChoix;             // Choix joueur dans le menu.
 
     /** Début fonction **/
-    do {
-        plateauJeu(j,totalJ);                       //appel des fonctions
-        val=changeJoueur(val);
-        finTour=jouerCoup(val, j);
-        billeGagne(val, finTour, j, totalJ);
-    } while (!((totalJ[0]>=total/2) || (totalJ[1]>=total/2)));      //Boucle pour que le jeu continue tant que
-                                                                    //l'un des 2 joueurs n'a pas obtenu au moins la moitiée
-                                                                    // du total des billes.
+
+    mChoix=menu();                  // On récupère le choix du joueur dans le menu
+
+
+    if (mChoix==1){
+            nomJoueur(mChoix,joueur1,joueur2);
+        }
+
+
+
+
+
+        do {
+
+            plateauJeu(joueur1,joueur2,j,totalJ);                       //appel des fonctions
+            val=changeJoueur(val);
+            finTour=jouerCoup(joueur1,joueur2,val, j);
+            billeGagne(val, finTour, j, totalJ);
+        } while (!((totalJ[0]>=total/2) || (totalJ[1]>=total/2)));      //Boucle pour que le jeu continue tant que
+                                                                        //l'un des 2 joueurs n'a pas obtenu au moins la moitiée
+                                                                        // du total des billes.
     return 0;
 }
 

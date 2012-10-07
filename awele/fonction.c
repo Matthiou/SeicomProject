@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <unistd.h>   // rajout fonction sleep
 #include "fonction.h"
+//#include <unistd.h>   // rajout fonction sleep
 
 
 /**fonction changement de joueur**/
@@ -18,6 +18,7 @@ int changeJoueur(int x) {
 
     if (x==0) val=1;    // si c'est le joueur un qui vient de jouer
                         // alors  la valeur change c'est au joueur 2.
+
     else val=0;         // si c'est le joueur un qui vient de jouer
                         // alors c'est au tour du joueur 1
 
@@ -30,7 +31,7 @@ int changeJoueur(int x) {
 
 /** fonction demandant quelle case le joueur selectionne et retourne la valeur **/
 
-char selectionCase(int x) {
+char selectionCase(char *j1, char *j2, int x) {
     /** Variable local **/
     char car;
 
@@ -41,17 +42,22 @@ char selectionCase(int x) {
     if (x==0) {
         do {
 
-            printf(" Joueur 1 veuillez choisir une case entre a et f \n");
-            scanf("%c",&car);
-        } while(!(car>='a' && car<='f'));
+            printf(" %s veuillez choisir une case entre a et f ",j1);
+            printf(" \n");
+            scanf(" %c",&car);
+
+        } while(!(car>='a' || car<='f'));
     }
 
     else {
         do {
 
-            printf(" Joueur 2 veuillez choisir une case entre A et F \n");
-            scanf("%c",&car);
-        } while(!(car>='A' && car<='F'));
+            printf(" %s veuillez choisir une case entre A et F ",j2);
+            printf(" \n");
+            scanf(" %c",&car);
+
+
+        } while(!(car>='A' || car<='F'));
     }
 
     return car;
@@ -61,7 +67,7 @@ char selectionCase(int x) {
 
 /** Fonction qui permet de répartir la main du joueur dans les autres cases**/
 
-int jouerCoup(int v, int *x) {
+int jouerCoup(char *j1, char *j2, int v, int *x) {
     /** paramètres v=booléen permet de savoir si c'est au joueur 1 ou 2,
     // x est un pointeur prenant pour paramètre le tableau représentant les
     // valeurs de chaque case(permet de modifier les valeurs du tableau défini
@@ -79,7 +85,7 @@ int jouerCoup(int v, int *x) {
     /** Début fonction **/
     if (v==0) {
         do {                                    //boucle tant que la case ne contient pas de bille (==0)
-            w=selectionCase(v);
+            w=selectionCase(j1,j2,v);
             choixCase=5-('f'-w);                //calcul le numéro de la case qui a été jouée
         } while (x[choixCase]==0);
 
@@ -108,7 +114,7 @@ int jouerCoup(int v, int *x) {
 
     else {
         do {
-            w=selectionCase(v);
+            w=selectionCase(j1,j2, v);
             choixCase=6+(w-'A');                                // même principe que plus haut mais on rajoute 6
         } while (x[choixCase]==0);                              // car on joue sur la partie basse du tableau (joueur2)
                                                                 // A voir du coup si c'est possible de simplifier
@@ -179,4 +185,27 @@ void billeGagne(int v, int w,int *x, int *y) {
     }
 
 }
+
+
+
+/** Fonction nom joueur **/
+void nomJoueur(int v,char *j1,char *j2)
+{
+
+
+    if (v==1){
+    printf("Veuillez indiquer vos Pseudos pour la partie \n");
+    printf(" Nom joueur 1 : \n");
+    scanf("%s",j1);
+
+    printf(" Nom joueur 2 : \n");
+    scanf("%s",j2);
+    }
+
+
+
+
+}
+
+
 

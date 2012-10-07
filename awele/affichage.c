@@ -19,7 +19,7 @@ tableau de 12 cases représentant les emplacements ou sont stocké les billes ca
 *******************************************************************************************/
 
 
-void plateauJeu(int *x,int *y)
+void plateauJeu(char *j1,char *j2, int *x,int *y)
 {
     /** Variables locales **/
     int i;
@@ -55,7 +55,7 @@ void plateauJeu(int *x,int *y)
         else printf("| %d | ", x[i]);
     }
 
-    printf(" Total joueur 1 = %d",y[0]);
+    printf(" Total de %s = %d",j1,y[0]);
     printf("\n");
 
     for (i=1; i<=6; i++)
@@ -84,7 +84,7 @@ void plateauJeu(int *x,int *y)
 
 
     }
-    printf(" Total joueur 2 = %d",y[1]);
+    printf(" Total de %s = %d",j2,y[1]);
     printf("\n");
 
     for (i=1; i<=6; i++)
@@ -102,4 +102,26 @@ void plateauJeu(int *x,int *y)
     printf("\n");
 
 
+}
+
+
+
+/** fonction pour l'affichage du menu de démarrage du jeu **/
+
+int menu()
+{
+    int val;
+
+    printf("Bienvenu sur le jeux Awele \n");
+    printf("Veuillez choisir un mode de jeux : \n");
+    printf(" 1 - Jouer en local. \n");
+    printf(" 2 - Héberger une partie en réseau. \n");
+    printf(" 3 - Rejoindre une partie en réseau. \n");
+    printf(" 4 - Lire les règles. \n");
+    printf(" 5 - Quitter. \n");
+    printf("\n");
+   scanf("%d",&val);
+
+
+   return val;
 }
