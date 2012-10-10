@@ -22,6 +22,6 @@ void billeGagne(int v, int w,int *x,int *y);
 int menu();
 
 //Fonction pour demander au joueur son pseudo
-// les 2 derniers paramètres sont les nom de joueurs
+// les 2 derniers paramètres sont les noms de joueurs
 void nomJoueur(int v,char *j1,char *j2);
 

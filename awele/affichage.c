@@ -29,7 +29,7 @@ void plateauJeu(char *j1,char *j2, int *x,int *y)
 
 
     /** Début **/
-    // Ensemble de boucles pour créer la partie haut du tableau
+    // Ensemble de boucles pour créer la partie haute du tableau
 
     printf("\033c" );
 
