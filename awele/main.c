@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include "fonction.h"
 #include "connexion.h"
-
+#define TOTAL 8
 
 
 
@@ -10,7 +10,7 @@ int main(int argc, char *argv[]) {
 
 
     /** Variables et constantes **/
-    const int total=8;          //constante total des billes sur le plateau
+    //const int TOTAL;          //constante total des billes sur le plateau
 
 
     int totalJ[2]= {0,0};       // tableau pour stocker le nombre de billes récupérées par joueur = score
@@ -21,7 +21,7 @@ int main(int argc, char *argv[]) {
     int finTour;            // variable qui donne le numéro de la case du tableau par lequel le tour s'est terminé
 
     int mChoix;             // Choix dans le menu.
-
+    char car[2]="i";
 
 
     /** Début fonction **/
@@ -33,35 +33,36 @@ int main(int argc, char *argv[]) {
         do {
 
             plateauJeu(joueur1,joueur2,j,totalJ);                       //appel des fonctions
-            val=changeJoueur(val);
-            finTour=jouerCoup(joueur1,joueur2,val, j);
+            val=changeJoueur(val);                          // On change la valeur de val(booleen)
+            finTour=jouerCoup(joueur1,joueur2,val, j,car,mChoix);
             billeGagne(val, finTour, j, totalJ);
 
-            if (totalJ[0]>=total/2) {
+            if (totalJ[0]>=TOTAL/2) {
                 plateauJeu(joueur1,joueur2,j,totalJ);
                 printf(" \n");
                 printf(" Bravo %s! tu as plus de la moitié des billes, c'est toi qui gagne! \n",joueur1);
 
-            } else if (totalJ[1]>=total/2) {
+            } else if (totalJ[1]>=TOTAL/2) {
                 plateauJeu(joueur1,joueur2,j,totalJ);
                 printf(" \n");
                 printf(" Bravo %s! tu as plus de la moitié des billes, c'est toi qui gagne! \n",joueur2);
 
             }
 
-        } while (!((totalJ[0]>=total/2) || (totalJ[1]>=total/2)));      //Boucle pour que le jeu continue tant que
+        } while (!((totalJ[0]>=TOTAL/2) || (totalJ[1]>=TOTAL/2)));      //Boucle pour que le jeu continue tant que
         //l'un des 2 joueurs n'a pas obtenu au moins la moitiée
-    }                                                                    // du total des billes.
+                                                                       // du total des billes.
 
+    }
 
     else if (mChoix==2) {
         nomJoueur(mChoix,joueur1,joueur2);
-        serveur(joueur1,joueur2);
+        serveur(joueur1,joueur2,j,totalJ,car);
     }
 
     else if (mChoix==3) {
         nomJoueur(mChoix,joueur1,joueur2);
-        client(joueur1,joueur2);
+        client(joueur1,joueur2,j,totalJ,car);
     }
 
 
