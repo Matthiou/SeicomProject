@@ -9,11 +9,11 @@ void plateauJeu(char *j1,char *j2,int *x,int *y);
 int changeJoueur(int x);
 
 // Fonction qui renvoi la case sélectionnée par le joueur
-void selectionCase(char *j1, char *j2, int x,char *w, int mChoix);
+int selectionCase(char *j1 , char *j2 , int v , char *w , int *j ,  int mChoix);
 
 // Fonction qui calcul le comportement du jeu suivant les différents paramètres
 // les 2 premiers paramètres sont les nom de joueurs
-int jouerCoup(char *j1, char *j2, int v, int *x, char *w, int mChoix);
+int jouerCoup(char *j1, char *j2, int v, int *x, int choixCase);
 
 // Fonction qui calcul le nombre de bille gagnée par les joueurs
 void billeGagne(int v, int w,int *x,int *y);

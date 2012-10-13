@@ -32,24 +32,25 @@ int changeJoueur(int x) {
 
 /** fonction demandant quelle case le joueur selectionne et retourne la valeur **/
 
-void selectionCase(char *j1, char *j2, int x,char *w, int mChoix) { /* x= valeur bool pour savoir qui est en train de jouer */
+int selectionCase(char *j1 , char *j2 , int v , char *car , int *j ,  int mChoix) { /* x= valeur bool pour savoir qui est en train de jouer */
 
     /** Variable local **/
     //char car;
-
+    int choixCase=0;
 
 
 
         /** Début fonction **/
     if (mChoix==1){
-        if (x==0) {
+        if (v==0) {
             do {
 
                 printf(" %s veuillez choisir une case entre a et f ",j1);
                 printf(" \n");
-                scanf(" %c",w);
+                scanf(" %c",car);
+                choixCase=5-('f'-*car);
 
-            } while(!(*w>='a' && *w<='f'));
+            } while(!(*car>='a' && *car<='f') && (j[choixCase]==0));
         }
 
         else {
@@ -57,36 +58,45 @@ void selectionCase(char *j1, char *j2, int x,char *w, int mChoix) { /* x= valeur
 
                 printf(" %s veuillez choisir une case entre A et F ",j2);
                 printf(" \n");
-                scanf(" %c",w);
+                scanf(" %c",car);
+                choixCase=6+(*car-'A');
 
-
-            } while(!(*w>='A' && *w<='F'));
+            } while(!(*car>='A' && *car<='F') && (j[choixCase]==0));
         }
     }
 
     if (mChoix==2){
-        if (x==0) {
+        if (v==0) {
             do {
 
                 printf(" %s veuillez choisir une case entre a et f ",j1);
                 printf(" \n");
-                scanf(" %c",w);
+                scanf(" %c",car);
+                choixCase=5-('f'-*car);
 
-            } while(!(*w>='a' && *w<='f'));
-        } //else printf(" En attente du joueur ");
+            } while(!(*car>='a' && *car<='f') && (j[choixCase]==0));
+        } else {
+            printf(" En attente que %s joue... \n",j2);
+            choixCase=6+(*car-'A');
+        }
     }
     if (mChoix==3){
-        if (x==1) {
+        if (v==1) {
             do {
 
                 printf(" %s veuillez choisir une case entre A et F ",j2);
                 printf(" \n");
-                scanf(" %c",w);
+                scanf(" %c",car);
+                choixCase=6+(*car-'A');
 
-
-            } while(!(*w>='A' && *w<='F'));
-        } //else printf(" En attente du joueur ");
+            } while(!(*car>='A' && *car<='F') && (j[choixCase]==0));
+        }   else {
+            printf(" En attente que %s joue... \n",j1);
+            choixCase=5-('f'-*car);
+            }
     }
+
+    return choixCase;
 
 }
 
@@ -94,7 +104,7 @@ void selectionCase(char *j1, char *j2, int x,char *w, int mChoix) { /* x= valeur
 
 /** Fonction qui permet de répartir la main du joueur dans les autres cases**/
 
-int jouerCoup(char *j1, char *j2, int v, int *x, char *w, int mChoix) {
+int jouerCoup(char *j1, char *j2, int v, int *x, int choixCase) {
     /** paramètres v=booléen permet de savoir si c'est au joueur 1 ou 2,
     // x est un pointeur prenant pour paramètre le tableau représentant les
     // valeurs de chaque case(permet de modifier les valeurs du tableau défini
@@ -103,7 +113,7 @@ int jouerCoup(char *j1, char *j2, int v, int *x, char *w, int mChoix) {
 
     /** Variables locales **/
 //    char w;
-    int choixCase=0;            // numéro de case sélectionnée par le joueur (de 0 à 11)
+    //int choixCase=0;            // numéro de case sélectionnée par le joueur (de 0 à 11)
     int valCase=0;              // nombre de bille dans la case sélectionnée
     int i=0,j=0;                // compteur
     int arretCase;              //dernière case variable à renvoyer
@@ -114,18 +124,18 @@ int jouerCoup(char *j1, char *j2, int v, int *x, char *w, int mChoix) {
 
     /** Début fonction **/
 
-    if (v==0) {
-        do {                                    //boucle tant que la case ne contient pas de bille (==0)
-            selectionCase(j1,j2,v,w,mChoix);
-            choixCase=5-('f'-*w);                //calcul le numéro de la case qui a été jouée
-        } while (x[choixCase]==0);
-    }
-    else {
-        do {
-            selectionCase(j1,j2, v,w,mChoix);
-            choixCase=6+(*w-'A');                                // même principe que plus haut mais on rajoute 6
-        } while (x[choixCase]==0);                              // car on joue sur la partie basse du tableau (joueur2)
-    }                                                            // A voir du coup si c'est possible de simplifier
+//    if (v==0) {
+//        do {                                    //boucle tant que la case ne contient pas de bille (==0)
+//            selectionCase(j1,j2,v,w,mChoix);
+//            choixCase=5-('f'-*w);                //calcul le numéro de la case qui a été jouée
+//        } while (x[choixCase]==0);
+//    }
+//    else {
+//        do {
+//            selectionCase(j1,j2, v,w,mChoix);
+//            choixCase=6+(*w-'A');                                // même principe que plus haut mais on rajoute 6
+//        } while (x[choixCase]==0);                              // car on joue sur la partie basse du tableau (joueur2)
+//    }                                                            // A voir du coup si c'est possible de simplifier
 
 
         valCase=x[choixCase];                       //nombre de bille qui était dans la case

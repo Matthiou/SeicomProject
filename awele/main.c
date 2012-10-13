@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include "fonction.h"
 #include "connexion.h"
-#define TOTAL 8
+#define TOTAL 48                 // constante total des billes sur le plateau
 
 
 
@@ -22,7 +22,7 @@ int main(int argc, char *argv[]) {
 
     int mChoix;             // Choix dans le menu.
     char car[2]="i";
-
+    int choixCase;
 
     /** Début fonction **/
 
@@ -34,7 +34,8 @@ int main(int argc, char *argv[]) {
 
             plateauJeu(joueur1,joueur2,j,totalJ);                       //appel des fonctions
             val=changeJoueur(val);                          // On change la valeur de val(booleen)
-            finTour=jouerCoup(joueur1,joueur2,val, j,car,mChoix);
+            choixCase=selectionCase(joueur1,joueur2,val,car,j,mChoix);
+            finTour=jouerCoup(joueur1,joueur2,val, j,choixCase);
             billeGagne(val, finTour, j, totalJ);
 
             if (totalJ[0]>=TOTAL/2) {
@@ -49,9 +50,10 @@ int main(int argc, char *argv[]) {
 
             }
 
-        } while (!((totalJ[0]>=TOTAL/2) || (totalJ[1]>=TOTAL/2)));      //Boucle pour que le jeu continue tant que
-        //l'un des 2 joueurs n'a pas obtenu au moins la moitiée
-                                                                       // du total des billes.
+        } while (!((totalJ[0]>=TOTAL/2) || (totalJ[1]>=TOTAL/2)) || (*car=='q'));
+        // Boucle pour que le jeu continue tant que
+        // l'un des 2 joueurs n'a pas obtenu au moins la moitiée
+        // du total des billes.
 
     }
 
@@ -65,6 +67,15 @@ int main(int argc, char *argv[]) {
         client(joueur1,joueur2,j,totalJ,car);
     }
 
+    else if (mChoix==4) {
+
+        printf("Google est ton ami ! \n");
+        //printf("appuyez sur une touche pour revenir en arrière \n");
+
+        //if (getchar()) menu();
+    }
+
+    else if (mChoix==5) return 0;
 
     return 0;
 }

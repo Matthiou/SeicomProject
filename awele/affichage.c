@@ -33,7 +33,7 @@ void plateauJeu(char *j1,char *j2, int *x,int *y)
 
     printf("\033c" );
 
-
+    //printf(" pour quitter le jeu appuyez sur la touche q \n \n");
     for (i='f'; i>='a'; i--)
     {
         printf("  %c   ",i);
@@ -112,6 +112,8 @@ int menu()
 {
     int val;
 
+
+    printf("\033c" );
     printf("Bienvenu sur le jeux Awele \n");
     printf("Veuillez choisir un mode de jeux : \n");
     printf(" 1 - Jouer en local. \n");
@@ -120,7 +122,7 @@ int menu()
     printf(" 4 - Lire les règles. \n");
     printf(" 5 - Quitter. \n");
     printf("\n");
-   scanf("%d",&val);
+    scanf(" %d",&val);
 
 
    return val;

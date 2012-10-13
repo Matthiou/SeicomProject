@@ -28,7 +28,7 @@ typedef struct sockaddr SOCKADDR;
 
 /** fonction pour lancer un serveur pour héberger la partie - code original provenant du site du zéro**/
 
-int serveur(char *j1, char *j2,int *x, int *y, char *w) {   // le serveur sera toujours le joueur 1
+int serveur(char *j1 , char *j2 , int *j , int *y , char *car) {   // le serveur sera toujours le joueur 1
 #if defined (WIN32)
     WSADATA WSAData;
     int erreur = WSAStartup(MAKEWORD(2,2), &WSAData);
@@ -45,6 +45,7 @@ int serveur(char *j1, char *j2,int *x, int *y, char *w) {   // le serveur sera t
     int val=1;
     int finTour;
     int mChoix=2;
+    int choixCase=0;
 //    char w;
 
     /* Si les sockets Windows fonctionnent */
@@ -91,43 +92,26 @@ int serveur(char *j1, char *j2,int *x, int *y, char *w) {   // le serveur sera t
         if(sock_err != SOCKET_ERROR) printf("Chaine envoyée : %s\n", j1);
         if(recv(csock, j2, 32, 0) != SOCKET_ERROR) printf("Recu : %s\n", j2);
 
-
-
-
-
-        /* debut de la boucle tant que pour l'affichage */
+        /* Début du jeux */
         do {
+        plateauJeu( j1 , j2 , j , y );
+        val=changeJoueur(val);
+        choixCase=selectionCase( j1 , j2 , val , car , j , mChoix );
+        sock_err = send(csock, car, 2, 0);
+        if(sock_err != SOCKET_ERROR) printf("Chaine envoyée : %s\n", car);
+        finTour=jouerCoup( j1 , j2 , val , j , choixCase );
+        billeGagne( val , finTour , j , y );
 
-                plateauJeu(j1,j2,x,y);      // On dessine un première fois le plateau de jeu.
-                val=changeJoueur(val);      // val prend pour valeur le retour de la fontion c'est à dire 0 (car val=1)
-                finTour=jouerCoup(j1,j2,val, x,w,mChoix);   // on lance la fonction qui demande aux joueurs de choisir quel case jouer
-                sock_err = send(csock, w, 1, 0);
-                if(sock_err != SOCKET_ERROR) printf("Chaine envoyée : %s\n", w);
-                billeGagne(val, finTour, x, y);
-                plateauJeu(j1,j2,x,y);
-                val=changeJoueur(val);
-                printf("en attente du joueur %s",j2);
-                finTour=jouerCoup(j1,j2,val, x,w,mChoix);
-                if(recv(csock, w, 1, 0) != SOCKET_ERROR) printf("Recu : %s\n", w);
-
-                billeGagne(val, finTour, x, y);
-
-            if (y[0]>=TOTAL/2) {
-                plateauJeu(j1,j2,x,y);
-                printf(" \n");
-                printf(" Bravo %s! tu as plus de la moitié des billes, c'est toi qui gagne! \n",j1);
-
-            } else if (y[1]>=TOTAL/2) {
-                plateauJeu(j1,j2,x,y);
-                printf(" \n");
-                printf(" Perdu %s! tu ne pourras plus gagner plus de la moitié des billes, c'est toi qui perd! \n",j1);
-
-            }
-
-        } while (!((y[0]>=TOTAL/2) || (y[1]>=TOTAL/2)));      //Boucle pour que le jeu continue tant que
-        //l'un des 2 joueurs n'a pas obtenu au moins la moitiée
-                                                                       // du TOTAL des billes.
-
+        /* changement de joueur */
+        plateauJeu( j1, j2, j, y);
+        val=changeJoueur(val);
+        if(recv(csock, car, 2, 0) != SOCKET_ERROR) printf("Recu : %s\n", car);
+        choixCase=selectionCase( j1 , j2 , val , car , j , mChoix );
+        finTour=jouerCoup( j1 , j2 , val , j , choixCase);
+        billeGagne( val , finTour , j , y );
+        } while (!((y[0]>=TOTAL/2) || (y[1]>=TOTAL/2)) || (*car=='q'));    //Boucle pour que le jeu continue tant que
+                                                            //l'un des 2 joueurs n'a pas obtenu au moins la moitiée
+                                                            // du TOTAL des billes.
 
 
                                         /** fin envoi de données **/
@@ -164,7 +148,7 @@ int serveur(char *j1, char *j2,int *x, int *y, char *w) {   // le serveur sera t
 
 /** Fonction pour lancer une connexion au serveur - code original provenant du site du zéro **/
 
-int client(char *j1, char *j2, int *x, int *y, char *w) {    // le client sera toujours le joueur 2
+int client(char *j1, char *j2, int *j, int *y, char *car) {    // le client sera toujours le joueur 2
 #if defined (WIN32)
     WSADATA WSAData;
     int erreur = WSAStartup(MAKEWORD(2,2), &WSAData);
@@ -180,7 +164,8 @@ int client(char *j1, char *j2, int *x, int *y, char *w) {    // le client sera t
     int val=1;
     int finTour;
     int mChoix=3;
-
+    int choixCase=0;
+    char ip[32]="127.0.0.1";
     /* Début */
     /* Si les sockets Windows fonctionnent */
     if(!erreur) {
@@ -188,7 +173,9 @@ int client(char *j1, char *j2, int *x, int *y, char *w) {    // le client sera t
         sock = socket(AF_INET, SOCK_STREAM, 0);
 
         /* Configuration de la connexion */
-        sin.sin_addr.s_addr = inet_addr("127.0.0.1");
+        printf(" Entrez l'adresse IP du serveur distant : ");
+        scanf("%s",ip);
+        sin.sin_addr.s_addr = inet_addr(ip);
         sin.sin_family = AF_INET;
         sin.sin_port = htons(PORT);
 
@@ -218,53 +205,28 @@ int client(char *j1, char *j2, int *x, int *y, char *w) {    // le client sera t
         else printf("Erreur de transmission\n");
 
 
-
-
-        /* debut de la boucle tant que pour l'affichage */
         do {
+        plateauJeu(j1,j2,j,y);
+        val=changeJoueur(val);
+        if(recv(sock, car, 2, 0) != SOCKET_ERROR) printf("Recu : %s\n", car);
+        choixCase=selectionCase(j1,j2,val,car,j,mChoix);
+        finTour=jouerCoup(j1,j2,val, j,choixCase);
+        billeGagne(val, finTour, j, y);
 
-                plateauJeu(j1,j2,x,y);
-                val=changeJoueur(val);
-                printf("en attente du joueur %s",j1);
-                finTour=jouerCoup(j1,j2,val, x,w,mChoix);
-                if(recv(sock, w, 1, 0) != SOCKET_ERROR) printf("Recu : %s\n", w);
-                plateauJeu(j1,j2,x,y);
-                billeGagne(val, finTour, x, y);
-                plateauJeu(j1,j2,x,y);
-                val=changeJoueur(val);
-                finTour=jouerCoup(j1,j2,val, x,w,mChoix);
-                sock_err = send(sock, w, 1, 0);
-                if(sock_err != SOCKET_ERROR) printf("Chaine envoyée : %s\n", w);
-                billeGagne(val, finTour, x, y);
+        /* changement de joueur */
+        plateauJeu(j1,j2,j,y);
+        val=changeJoueur(val);
+        choixCase=selectionCase(j1,j2,val,car,j,mChoix);
+        sock_err = send(sock, car, 2, 0);
+        if(sock_err != SOCKET_ERROR) printf("Chaine envoyée : %s\n", car);
+        finTour=jouerCoup(j1,j2,val, j,choixCase);
+        billeGagne(val, finTour, j, y);
 
-            if (y[0]>=TOTAL/2) {
-                plateauJeu(j1,j2,x,y);
-                printf(" \n");
-                printf(" Bravo %s! tu as plus de la moitié des billes, c'est toi qui gagne! \n",j1);
-
-            } else if (y[1]>=TOTAL/2) {
-                plateauJeu(j1,j2,x,y);
-                printf(" \n");
-                printf(" Perdu %s! tu ne pourras plus gagner plus de la moitié des billes, c'est toi qui perd! \n",j1);
-
-            }
-
-        } while (!((y[0]>=TOTAL/2) || (y[1]>=TOTAL/2)));      //Boucle pour que le jeu continue tant que
-        //l'un des 2 joueurs n'a pas obtenu au moins la moitiée
-                                                                       // du TOTAL des billes.
-
+        } while (!((y[0]>=TOTAL/2) || (y[1]>=TOTAL/2)) || (*car=='q'));
 
 
 
                             /** Fin de la partie envoie des données **/
-
-
-
-
-
-
-
-
 
 
 
