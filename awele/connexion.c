@@ -98,9 +98,9 @@ int serveur(char *j1, char *j2,int *x, int *y, char *w) {   // le serveur sera t
         /* debut de la boucle tant que pour l'affichage */
         do {
 
-                plateauJeu(j1,j2,x,y);
-                val=changeJoueur(val);
-                finTour=jouerCoup(j1,j2,val, x,w,mChoix);
+                plateauJeu(j1,j2,x,y);      // On dessine un première fois le plateau de jeu.
+                val=changeJoueur(val);      // val prend pour valeur le retour de la fontion c'est à dire 0 (car val=1)
+                finTour=jouerCoup(j1,j2,val, x,w,mChoix);   // on lance la fonction qui demande aux joueurs de choisir quel case jouer
                 sock_err = send(csock, w, 1, 0);
                 if(sock_err != SOCKET_ERROR) printf("Chaine envoyée : %s\n", w);
                 billeGagne(val, finTour, x, y);
