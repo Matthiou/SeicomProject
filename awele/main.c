@@ -1,3 +1,19 @@
+/*************************************************************************
+**************************************************************************
+
+                        PROJET AWELE LICENCE SEICOM
+
+**************************************************************************
+**************************************************************************
+codage Romain (th3fr33man) licence seicom 2012-13.
+**************************************************************************
+remarque: si problème de compilation sous windows et codeblock il faut
+aller dans Settings/Compiler and Debugger.../Linker setting/add et
+rajouter la librairie  que se trouve dans
+C:\Program Files (x86)\CodeBlocks\MinGW\lib\libws2_32.a
+*************************************************************************/
+
+
 #include <stdio.h>
 #include <stdlib.h>
 #include "fonction.h"

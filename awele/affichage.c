@@ -104,26 +104,26 @@ void plateauJeu(char *j1,char *j2, int *x,int *y)
 
 }
 
-
-
-/** fonction pour l'affichage du menu de démarrage du jeu **/
-
-int menu()
-{
-    int val;
-
-
-    printf("\033c" );
-    printf("Bienvenu sur le jeux Awele \n");
-    printf("Veuillez choisir un mode de jeux : \n");
-    printf(" 1 - Jouer en local. \n");
-    printf(" 2 - Héberger une partie en réseau. \n");
-    printf(" 3 - Rejoindre une partie en réseau. \n");
-    printf(" 4 - Lire les règles. \n");
-    printf(" 5 - Quitter. \n");
-    printf("\n");
-    scanf(" %d",&val);
-
-
-   return val;
-}
+//
+//
+///** fonction pour l'affichage du menu de démarrage du jeu **/
+//  fonction déplacée vers un nouveau fichier menu.c
+//int menu()
+//{
+//    int val;
+//
+//
+//    printf("\033c" );
+//    printf("Bienvenu sur le jeux Awele \n");
+//    printf("Veuillez choisir un mode de jeux : \n");
+//    printf(" 1 - Jouer en local. \n");
+//    printf(" 2 - Héberger une partie en réseau. \n");
+//    printf(" 3 - Rejoindre une partie en réseau. \n");
+//    printf(" 4 - Lire les règles. \n");
+//    printf(" 5 - Quitter. \n");
+//    printf("\n");
+//    scanf(" %d",&val);
+//
+//
+//   return val;
+//}
