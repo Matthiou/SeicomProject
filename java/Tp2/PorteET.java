@@ -1,8 +1,8 @@
 
 public class PorteET extends Circuit {
 
-	public PorteET(Fil e1, Fil e2, Fil s1){
-		super(2,1);
+	public PorteET(Fil e1, Fil e2, Fil s1,String nom){
+		super(2,1,nom);
 		entrees[0] = e1;
 		entrees[1] = e2;
 		sorties[0] = s1;
@@ -21,14 +21,16 @@ public class PorteET extends Circuit {
 
 	@Override
 	public String toString() {
-		return "PorteET [sortie =" + sorties[0].toString()+ "]";
+		//return "PorteET [sortie =" + sorties[0].toString()+ "]";
+		return "PorteET " + getNom() + " (" + entrees[0].toString() + "," + entrees[1].toString() + ") " + "[" + sorties[0].toString()+ "]";
+
 	}
 
 	public static void main(String args[]){
 		Fil f1 = new Fil();
 		Fil f2 = new Fil();
 		Fil f3 = new Fil();
-		PorteET p = new PorteET(f1, f2, f3);
+		PorteET p = new PorteET(f1, f2, f3,"p1");
 		System.out.println(p);
 		f1.setValeur(Fil.UN);
 		f2.setValeur(Fil.UN);

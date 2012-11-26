@@ -1,8 +1,8 @@
 
 public class PorteXOR extends Circuit{
 	
-	public PorteXOR(Fil e1, Fil e2, Fil s1){
-		super(2,1);
+	public PorteXOR(Fil e1, Fil e2, Fil s1,String nom){
+		super(2,1,nom);
 		entrees[0] = e1;
 		entrees[1] = e2;
 		sorties[0] = s1;
@@ -20,13 +20,30 @@ public class PorteXOR extends Circuit{
 		}else if(entrees[0].getValeur() == Fil.ZERO && entrees[1].getValeur() == Fil.UN){
 			sorties[0].setValeur(Fil.UN);
 		}else sorties[0].setValeur(Fil.X);
-		}
+		
+		
+//		else if(entrees[0].getValeur() == Fil.X && entrees[1].getValeur() == Fil.ZERO){
+//			sorties[0].setValeur(Fil.X);
+//		}else if(entrees[0].getValeur() == Fil.X && entrees[1].getValeur() == Fil.UN){
+//			sorties[0].setValeur(Fil.X);
+//		}else if(entrees[0].getValeur() == Fil.ZERO && entrees[1].getValeur() == Fil.X){
+//			sorties[0].setValeur(Fil.X);
+//		}else if(entrees[0].getValeur() == Fil.UN && entrees[1].getValeur() == Fil.X){
+//			sorties[0].setValeur(Fil.X);
+//		}
+//		
+	
+	
+	
+	}
 	
 	
 
 	@Override
 	public String toString() {
-		return "PorteXOR [sortie =" + sorties[0].toString()+ "]";
+		//return "PorteXOR [sortie =" + sorties[0].toString()+ "]";
+		return "PorteXOR " + getNom() + " (" + entrees[0].toString() + "," + entrees[1].toString() + ") " + "[" + sorties[0].toString()+ "]";
+
 	}
 
 //	public static void main(String args[]){

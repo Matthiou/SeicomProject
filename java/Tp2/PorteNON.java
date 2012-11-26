@@ -2,8 +2,8 @@
 public class PorteNON  extends Circuit {
 
 
-	public PorteNON(Fil e1,  Fil s1){
-		super(1,1);
+	public PorteNON(Fil e1,  Fil s1 ,String nom){
+		super(1,1,nom);
 		entrees[0] = e1;
 		sorties[0] = s1;
 	}
@@ -22,7 +22,7 @@ public class PorteNON  extends Circuit {
 
 	@Override
 	public String toString() {
-		return "PorteNON [sortie =" + sorties[0].toString()+ "]";
+		return "PorteNON " + getNom() + " (" + entrees[0].toString() + ") " + "[" + sorties[0].toString()+ "]";
 	}
 
 //	public static void main(String args[]){

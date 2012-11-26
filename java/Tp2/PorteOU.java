@@ -1,8 +1,10 @@
 
 public class PorteOU extends Circuit {
+	
+	//private String nomCircuit;
 
-	public PorteOU(Fil e1, Fil e2, Fil s1) {
-		super(2,1);
+	public PorteOU(Fil e1, Fil e2, Fil s1, String nom) {
+		super(2,1,nom);
 		entrees[0] = e1;
 		entrees[1] = e2;
 		sorties[0] = s1;
@@ -20,7 +22,9 @@ public class PorteOU extends Circuit {
 	}
 	@Override
 	public String toString() {
-		return "PorteOU [sortie =" + sorties[0].toString()+ "]";
+		//return this.getNom() + "PorteOU [sortie =" + sorties[0].toString()+ "]";
+		return "PorteOU " + getNom() + " (" + entrees[0].toString() + "," + entrees[1].toString() + ") " + "[" + sorties[0].toString()+ "]";
+
 	}
 
 }

@@ -21,7 +21,7 @@ public class TesteurComposant {
 						c.getFilEntree(e).setValeur(Fil.UN);
 					}
 				}
-				System.out.print(c.getFilEntree(e));
+				//System.out.print(c.getFilEntree(e));
 			}
 			c.simuler();
 			System.out.println(c);
@@ -30,16 +30,19 @@ public class TesteurComposant {
 	}
 	
 	public static void main(String args []){
-		TesteurComposant test = new TesteurComposant(new PorteET(new Fil("a"), new Fil(), new Fil()));
+		TesteurComposant test = new TesteurComposant(new PorteET(new Fil("a"), new Fil("b"), new Fil("y"),"pET1"));
 		test.tester();
-		test = new TesteurComposant(new PorteNON(new Fil(), new Fil()));
+		test = new TesteurComposant(new PorteNON(new Fil("a"), new Fil("y"),"pNon1"));
 		test.tester();
-		test = new TesteurComposant(new PorteXOR(new Fil(), new Fil(), new Fil()));
+		test = new TesteurComposant(new PorteXOR(new Fil("a"), new Fil("b"), new Fil("y"),"pXOR1"));
 		test.tester();
-		test = new TesteurComposant(new PorteOU(new Fil(), new Fil(), new Fil()));
+		test = new TesteurComposant(new PorteOU(new Fil("a"), new Fil("b"), new Fil("y"),"pOU1"));
 		test.tester();
-		test = new TesteurComposant(new PorteET(new Fil(), new Fil(), new Fil()));
+		test = new TesteurComposant(new PorteET(new Fil("a"), new Fil("b"), new Fil("y"),"pET2"));
 		test.tester();
+		test = new TesteurComposant(new BasculeRS(new Fil("r"), new Fil("s"), new Fil("q1"),new Fil("q2")));
+		test.tester();
+		
 		/*test = new TesteurComposant(new AddComp2bits(new Fil(), new Fil(), new Fil(), new Fil(), new Fil()));
 		test.tester(); */
 	}

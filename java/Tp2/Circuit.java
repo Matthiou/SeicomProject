@@ -1,17 +1,24 @@
 
-public abstract class Circuit /*extends Nommage*/ {
+public abstract class Circuit extends Nommage {
 	protected Fil entrees[];
 	protected Fil sorties[];
+
+	/* Constructeur */
 	
-	public Circuit(int nbE, int nbS){
-		//super("Circuit");
-		//super(String Nom);
-		
-		//super(1);
+	public Circuit(int nbE, int nbS,String nom){ 	//Constructeur avec possibilité de configurer le nom
+		super(nom);
 		entrees  = new Fil[nbE];
 		sorties = new Fil[nbS];
 	}
 	
+	public Circuit(int nbE, int nbS){			//Constucteur avec nom par défaut 
+		super("Circuit");
+		entrees  = new Fil[nbE];
+		sorties = new Fil[nbS];
+	}
+	
+	
+	/* Méthodes */
 	public Fil getFilEntree(int e){
 		return entrees[e];
 	}

@@ -46,6 +46,6 @@ public class Fil extends Nommage {
 	
 	public String toString(){
 		//return super.getNom(); 
-		return getNom()+"("+valeurToString(valeur)+")";
+		return getNom()+"="+valeurToString(valeur);
 	}
 }

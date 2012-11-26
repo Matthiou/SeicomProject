@@ -14,7 +14,7 @@ public class Nommage {
 	public String toString(){
 		//return "Fil("+valeurToString(valeur)+")";
 		
-		return this.getNom();//+ "(a=1,b=0) [y=0])" ;
+		return getNom();//+ "(a=1,b=0) [y=0])" ;
 	}	
 }
 
