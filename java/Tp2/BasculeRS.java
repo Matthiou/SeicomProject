@@ -15,16 +15,6 @@ public class BasculeRS extends CircuitComplexe{
 //	globalCircuit[2]= new PorteNON(entrees[2],sorties[0], "pNON1");
 //	globalCircuit[3]= new PorteNON(entrees[3],sorties[1], "pNON2");
 	
-	globalCircuit[0]= new PorteET(entrees[0],entrees[1],sorties[0], "pET1");
-	globalCircuit[1]= new PorteET(entrees[0],entrees[1],sorties[0], "pET2");
-	globalCircuit[2]= new PorteNON(entrees[0],sorties[0], "pNON1");
-	globalCircuit[3]= new PorteNON(entrees[0],sorties[0], "pNON2");
-	
-	globalCircuit[0].entrees[0]=r;
-	globalCircuit[1].entrees[1]=s;
-	globalCircuit[2].sorties[0]=q1;
-	globalCircuit[3].sorties[0]=q2;
-	
 //	Fil s = new Fil("S");
 //	Fil r = new Fil("R");
 //	Fil t1 = new Fil("t1");
@@ -43,17 +33,32 @@ public class BasculeRS extends CircuitComplexe{
 	//Circuit tab[]={pET1,pET2,pNON1,pNON2};
 	//CircuitComplexe bRs = new BasculeRS(globalCircuit);
 	
+	globalCircuit[0]= new PorteET(entrees[0],entrees[1],sorties[0], "pET1");
+	globalCircuit[1]= new PorteET(entrees[0],entrees[1],sorties[0], "pET2");
+	globalCircuit[2]= new PorteNON(entrees[0],sorties[0], "pNON1");
+	globalCircuit[3]= new PorteNON(entrees[0],sorties[0], "pNON2");
+	
+	globalCircuit[0].entrees[0]=r;
+	globalCircuit[1].entrees[1]=s;
+	globalCircuit[2].sorties[0]=q1;
+	globalCircuit[3].sorties[0]=q2;
+	
+	}
+	
+
+	/**Mï¿½thode de la classe**/
+	
+	public void PorteNONET(){
+		
 	}
 	
 	
-
-	/**Méthode de la classe**/
 	public void simuler(){
 		
 		globalCircuit[2].entrees[0]=globalCircuit[0].sorties[0];	// mise en cascade de ET et NON
 		globalCircuit[3].entrees[0]=globalCircuit[1].sorties[0];	// mise en cascade de ET et NON
-		globalCircuit[0].entrees[1]=globalCircuit[3].sorties[0];	// lien entre la sortie Q1 et l'entrée S
-		globalCircuit[1].entrees[0]=globalCircuit[2].sorties[0];	// lien entre la sortie Q2 et l'entrée R
+		globalCircuit[0].entrees[1]=globalCircuit[3].sorties[0];	// lien entre la sortie Q1 et l'entrï¿½e S
+		globalCircuit[1].entrees[0]=globalCircuit[2].sorties[0];	// lien entre la sortie Q2 et l'entrï¿½e R
 		
 	}
 	
@@ -78,7 +83,7 @@ public class BasculeRS extends CircuitComplexe{
 		Fil f3 = new Fil("q1");
 		Fil f4 = new Fil("q2");
 		BasculeRS bascRS = new BasculeRS(f1,f2,f3,f4);
-		f1.setValeur(Fil.UN);
+		f1.setValeur(Fil.ZERO);
 		f2.setValeur(Fil.ZERO);
 		bascRS.simuler();
 		System.out.println(bascRS);

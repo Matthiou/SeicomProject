@@ -40,8 +40,8 @@ public class TesteurComposant {
 		test.tester();
 		test = new TesteurComposant(new PorteET(new Fil("a"), new Fil("b"), new Fil("y"),"pET2"));
 		test.tester();
-		test = new TesteurComposant(new BasculeRS(new Fil("r"), new Fil("s"), new Fil("q1"),new Fil("q2")));
-		test.tester();
+//		test = new TesteurComposant(new BasculeRS(new Fil("r"), new Fil("s"), new Fil("q1"),new Fil("q2")));
+//		test.tester();
 		
 		/*test = new TesteurComposant(new AddComp2bits(new Fil(), new Fil(), new Fil(), new Fil(), new Fil()));
 		test.tester(); */
