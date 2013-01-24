@@ -1,56 +1,68 @@
 package View;
 
-import java.awt.BorderLayout;
+import java.awt.*;
+import java.awt.event.WindowListener;
 import java.util.EventListener;
 import java.util.Observable;
 import java.util.Observer;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import Model.BatNavModel;
-import View.BatNavView;
 
-public class GlobalView implements Observer{
-	
-	private JFrame globalView;
+public class GlobalView extends JFrame implements Observer { // extends JFrame
+
+	private static final long serialVersionUID = 1L; // A quoi ça sert??
+
+	// private JFrame terrain;
+	private JLabel label1;
+	private JLabel label2;
 	private BatNavView joueur1;
-	private BatNavView joueur2;	
-	
-	
+	private BatNavView joueur2;
 
-	public GlobalView(){
-		globalView = new JFrame();
-		globalView.getContentPane().setLayout(new BorderLayout());
+	/* constructeur */
+	public GlobalView() {
+		joueur1 = null;
+		joueur2 = null;
 		
-		BatNavView joueur1 = new BatNavView();
-		BatNavView joueur2 = new BatNavView();
+		this.getContentPane().setLayout(new BorderLayout());
+
+		label1 = new JLabel("label1");
+		label2 = new JLabel("label2");
+		this.getContentPane().add(label1, BorderLayout.SOUTH);
+		this.getContentPane().add(label2, BorderLayout.NORTH);
 		
-		globalView.getContentPane().add(joueur1, BorderLayout.EAST);
-		globalView.getContentPane().add(joueur2, BorderLayout.WEST);
-		
-		globalView.setSize(800, 600);
-		globalView.setTitle("touche...coule");
-		
+		this.setSize(800, 400);
+		this.setTitle("touche...coule");
+
+		joueur1 = new BatNavView('1');
+		joueur2 = new BatNavView('2');
+		this.getContentPane().add(joueur1, BorderLayout.EAST);
+		this.getContentPane().add(joueur2, BorderLayout.WEST);
 	}
-	
+
 	public void affiche() {
-		globalView.setVisible(true);
+		this.setVisible(true);
 	}
-	
-	public void setModele(BatNavModel m) {
-		joueur1.setModele(m);
-		joueur2.setModele(m);
+
+	void majTerrain() {
+		joueur1.majTerrain();
+		joueur2.majTerrain();
 	}
-	
+
 	public void setListener(EventListener al) {
 		joueur1.setListener(al);
 		joueur2.setListener(al);
+		this.addWindowListener((WindowListener) al);
+	}
+
+	public void setModele(BatNavModel m) {
+		joueur1.setModele(m);
+		joueur1.setModele(m);
 
 	}
 
-	@Override
+	/* méthode de l'interface Observer */
 	public void update(Observable o, Object arg) {
-		// TODO Auto-generated method stub
-		joueur1.update(o, arg);
-		joueur2.update(o, arg);
-
+		majTerrain();
 	}
 }

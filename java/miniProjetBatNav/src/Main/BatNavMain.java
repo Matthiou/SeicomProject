@@ -2,7 +2,7 @@ package Main;
 
 import Controler.BatNavControler;
 import Model.BatNavModel;
-import View.BatNavView;
+import View.GlobalView;
 
 public class BatNavMain {
 	public static void main(String[] args) {
@@ -11,7 +11,7 @@ public class BatNavMain {
 		BatNavModel model = new BatNavModel();
 
 		/* Contient la vue */
-		BatNavView view = new BatNavView();		
+		GlobalView view = new GlobalView();		
 
 		/* Contient le controleur */
 		BatNavControler controler = new BatNavControler();
