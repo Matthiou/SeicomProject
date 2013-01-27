@@ -25,6 +25,7 @@ public class BatNavView extends JPanel { // implements Observer
 	private static final Color BLANC = new Color(255, 255, 255);
 	private static final Color NOIR = new Color(0, 0, 0);
 
+	
 	/* constructeur */
 	public BatNavView(char id) {
 		idJoueur = id;
@@ -35,6 +36,8 @@ public class BatNavView extends JPanel { // implements Observer
 		JPanel pan2 = new JPanel();
 		pan1.setLayout(new GridLayout(11, 11));
 		pan2.setLayout(new GridLayout(11, 11));
+		
+
 		
 		/* on  créé les boutons représentant la partie visible pour le joueur */
 		lesBouttonsVisibles = new JButton[11][11];
@@ -47,6 +50,8 @@ public class BatNavView extends JPanel { // implements Observer
 			}
 		}
 
+		
+		
 		/* les boutons représentant le terrain de l'adversaire */ 
 		lesBouttonsBrouillardDeGuerre = new JButton[11][11];
 		for (int i = 0; i < 11; i++) {
@@ -58,9 +63,10 @@ public class BatNavView extends JPanel { // implements Observer
 			}
 		}
 		
-		this.add(pan2, BorderLayout.SOUTH);
-		this.add(pan1, BorderLayout.NORTH);
-		
+		this.add(pan2);
+		//this.add(labelCenter);
+		this.add(pan1);
+
 		
 	}
 

@@ -5,7 +5,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import Model.GlobalModel;
-import View.BatNavView;
 
 
 public class BatNavControler implements ActionListener, WindowListener {
@@ -21,10 +20,6 @@ public class BatNavControler implements ActionListener, WindowListener {
 		model = m;
 	}
 	
-	/* Pour connaitre la vue */
-	public void setVue(BatNavView v) {
-		//view = v;
-	}
 	
 	/* ActionListener implémentation */
 	public void actionPerformed(ActionEvent e) {

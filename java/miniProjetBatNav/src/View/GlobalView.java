@@ -19,65 +19,84 @@ public class GlobalView extends JFrame implements Observer { // extends JFrame
 	// private JFrame terrain;
 	private JLabel label1;
 	private JLabel label2;
-	private BatNavView joueurLocal=null;
-	private BatNavView joueurAdverse=null;
+	private JLabel label3;
+	private JLabel labelCenter1;
+	private JLabel labelCenter2;
+
+	private BatNavView joueurLocal = null;
+	private BatNavView joueurAdverse = null;
 	private GlobalModel model;
 	private JPanel panNomJoueur;
+	private JPanel panCenter;
 	private JTextArea texte;
-	
+
 	/* constructeur */
 	public GlobalView() {
 		joueurLocal = null;
 		joueurAdverse = null;
+		
+		// instanciation model
 		model = new GlobalModel();
+		
+		// création de la vue Instanciation et configuration des widgets
 		this.getContentPane().setLayout(new BorderLayout());
-		
-		texte = new JTextArea("message info",5,5);
-
+		texte = new JTextArea("message info", 5, 5);
 		panNomJoueur = new JPanel();
-		panNomJoueur.setLayout(new GridLayout(1,2));
-		label1 = new JLabel("joueur 2");
-		label2 = new JLabel("Joueur 1");
+		panNomJoueur.setLayout(new GridLayout(1, 3));
+		panCenter = new JPanel();
+		panCenter.setLayout(new GridLayout(2, 1));
+		label1 = new JLabel("                                 joueur 2"); // rajout d'espace pour centrer
+		label2 = new JLabel("");
+		label3 = new JLabel("                                 Joueur 1");
+		labelCenter1 = new JLabel("              Vue Brouillard de guerre");
+		labelCenter2 = new JLabel("  Future Vue pour implémentation LAN");
+
 		
-		this.getContentPane().add(panNomJoueur, BorderLayout.NORTH);
-		this.getContentPane().add(texte, BorderLayout.SOUTH);
-		
+		// on place tout ce petit monde
+		panCenter.add(labelCenter1);
+		panCenter.add(labelCenter2);
+
 		panNomJoueur.add(label1);
 		panNomJoueur.add(label2);
+		panNomJoueur.add(label3);
 		
-		this.setSize(800, 600);
+		this.getContentPane().add(panCenter, BorderLayout.CENTER);
+		this.getContentPane().add(panNomJoueur, BorderLayout.NORTH);
+		this.getContentPane().add(texte, BorderLayout.SOUTH);
+		this.setSize(1024, 768);
 		this.setTitle("touche...coule");
 
+		// Instanciation et placement de la vue terrain
 		joueurLocal = new BatNavView('1');
 		joueurAdverse = new BatNavView('2');
 		this.getContentPane().add(joueurLocal, BorderLayout.EAST);
 		this.getContentPane().add(joueurAdverse, BorderLayout.WEST);
-		
-		
-		
+
 	}
 
-	
+	// méthode pour afficher la vue
 	public void affiche() {
-		majTerrain();
 		this.setVisible(true);
 	}
 
-	
-	void majTerrain() {
-		if (model.GetId()=='1'){
-		//label1.getText();
-		joueurLocal.majTerrain();
-		} else joueurAdverse.majTerrain();
+	// méthode pour mettre a jour la vue lorsque le modèle notifiera un changement à la vue -> méthode update de Observer
+	public void majTerrain() {
+		if (model.GetId() == '1') {
+			label1.getText();
+			joueurLocal.majTerrain();
+		} else
+			joueurAdverse.majTerrain();
 		texte.setText(model.GetInfo());
 	}
 
+	// rajout du listener
 	public void setListener(EventListener al) {
 		joueurLocal.setListener(al);
 		joueurAdverse.setListener(al);
 		this.addWindowListener((WindowListener) al);
 	}
 
+	//déclaration du modèle
 	public void setModele(GlobalModel m) {
 		model = m;
 		joueurLocal.setModele(model);

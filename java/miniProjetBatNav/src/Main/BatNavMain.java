@@ -19,9 +19,6 @@ public class BatNavMain {
 		/* Pour que le controleur connaisse le modele */
 		controler.setModele(model);
 
-		/* Pour que le controleur connaisse la vue */
-		//controler.setVue(view);
-
 		/* Pour que la vue connaisse le modele */
 		view.setModele(model);
 

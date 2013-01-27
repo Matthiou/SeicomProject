@@ -40,24 +40,23 @@ public class BatNavModel {
 	}
 
 	public void Compare(String s) {
-		// // on met à jour le brouillard de guerre
+		// On met à jour le brouillard de guerre
 		// On découpe la chaine de caractère
 		String str[] = s.split(":");
 
 		// On transforme la chaine en nombre
 		int i = Integer.parseInt(str[0]), j = Integer.parseInt(str[1]);
-		
-//		// on récupère l'id du joueur dans la chaine
-//		int id = str[2].charAt(0);
+
 
 		if (GetCharVJoueur(i, j) == 'v' ) {
 			SetCharVJoueur(i, j, 'r');
 			coupGagnant++;
-			SetCharBDG(i, j, GetCharVJoueur(i, j));
-			// texte = "Touché!!!";
+			SetCharBDG(i, j, GetCharVJoueur(i, j));	//
+			 texte = "Touché!!! Bien joué";
 		} else if (GetCharVJoueur(i, j) == 'b' || (GetCharVJoueur(i, j) == 'n')) {
 			SetCharVJoueur(i, j, 'n');
 			SetCharBDG(i, j, 'b');
+			 texte = "A l'eau!!! Dommage";
 		}
 
 	}
@@ -67,12 +66,14 @@ public class BatNavModel {
 		visibiliteJLocal[x][y] = car;
 	}
 
+	//retourne le char contenu dans la case demandée
 	public char GetCharVJoueur(int x, int y) {
 		this.x = x;
 		this.y = y;
 		return visibiliteJLocal[this.x][this.y];
 	}
 
+	// méthode pour changer un caractère dans une case d'un tableau
 	public void SetCharBDG(int x, int y, char car) {
 		brouillarDeGuerreJLocal[x][y] = car;
 	}
@@ -85,12 +86,8 @@ public class BatNavModel {
 		return brouillarDeGuerreJLocal[this.x][this.y];
 	}
 
-	public String GetTexte() {
-		return texte;
-	}
-
+	// méthode pour placer bateau
 	public void Placer(Bateau Bat) {
-
 		// si paramètre vertical ou horizontal //
 		if (Bateau.GetOrientation() == true) {
 			int j = Bateau.GetY();
@@ -105,6 +102,9 @@ public class BatNavModel {
 		}
 	}
 
+	public String GetTexte(){
+		return texte;
+	}
 	public int getNbTouche(){
 		return coupGagnant;
 	}
