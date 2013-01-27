@@ -1,34 +1,32 @@
 package Model;
 
-import java.util.Observable;
-
-public class BatNavModel extends Observable {
-	private char brouillarDeGuerre[][];
-	private char visibiliteJoueur[][];
+public class BatNavModel {
+	private char brouillarDeGuerreJLocal[][];
+	private char visibiliteJLocal[][];
 
 	private String texte;
-	
+
 	private int x = 0, y = 0;
-	private char id;
+
 	private Bateau pAvion;
 	private Bateau cTorpilleur;
 	private Bateau torpilleur;
 	private Bateau croiseur;
 	private Bateau sMarin;
-	
+	private int coupGagnant=0;
 
 	// Constructeur //
 	public BatNavModel() {
-		brouillarDeGuerre = new char[11][11];
-		visibiliteJoueur = new char[11][11];
+		brouillarDeGuerreJLocal = new char[11][11];
+		visibiliteJLocal = new char[11][11];
 		for (int i = 0; i < 11; i++) {
 			for (int j = 0; j < 11; j++) {
-				brouillarDeGuerre[i][j] = 'n';
-				visibiliteJoueur[i][j] = 'b';
+				brouillarDeGuerreJLocal[i][j] = 'd';
+				visibiliteJLocal[i][j] = 'b';
 			}
 		}
-		
-		// Création et placement des bateaux 
+
+		// Création et placement des bateaux
 		pAvion = new PorteAvion();
 		Placer(pAvion);
 		cTorpilleur = new ContreTorpilleurs();
@@ -41,75 +39,74 @@ public class BatNavModel extends Observable {
 		Placer(sMarin);
 	}
 
-	// TODO : A corriger, problème avec les 2 tableaux qui ne lance pas les bonnes modif terrain
-	// quelque soit le terrain ou on clique c'est le même qui est modifié.
 	public void Compare(String s) {
+		// // on met à jour le brouillard de guerre
 		// On découpe la chaine de caractère
 		String str[] = s.split(":");
 
 		// On transforme la chaine en nombre
 		int i = Integer.parseInt(str[0]), j = Integer.parseInt(str[1]);
 		
-		// on récupère l'id du joueur
-		id = str[2].charAt(0);
+//		// on récupère l'id du joueur dans la chaine
+//		int id = str[2].charAt(0);
 
-		// on met à jour le brouillard de guerre
-		if(visibiliteJoueur[i][j]=='v' || visibiliteJoueur[i][j]=='r' ) {
-			visibiliteJoueur[i][j]='r';
-			texte = "Touché!!!";
-			
-		} else texte = "A l'eau!!!";
-		brouillarDeGuerre[i][j] = visibiliteJoueur[i][j];
-		visibiliteJoueur[i][j] = brouillarDeGuerre[i][j];
-		// on informe l'observer
-		setChanged();
-		notifyObservers();
+		if (GetCharVJoueur(i, j) == 'v' ) {
+			SetCharVJoueur(i, j, 'r');
+			coupGagnant++;
+			SetCharBDG(i, j, GetCharVJoueur(i, j));
+			// texte = "Touché!!!";
+		} else if (GetCharVJoueur(i, j) == 'b' || (GetCharVJoueur(i, j) == 'n')) {
+			SetCharVJoueur(i, j, 'n');
+			SetCharBDG(i, j, 'b');
+		}
+
 	}
 
-	
 	// pour modifier les chars du tableau visible
-	public void SetChar(int x, int y, char car) {
-		visibiliteJoueur[x][y] = car;
+	public void SetCharVJoueur(int x, int y, char car) {
+		visibiliteJLocal[x][y] = car;
 	}
 
-	
-	public String GetTexte(){
-		return texte;
-	}
-	
-
-	// Méthode pour récupérer la valeur char des cases du tableau brouillard de
-	// guerre
-	public char GetCharBdGuerre(int x, int y) {
-		this.x = x;
-		this.y = y;
-		return brouillarDeGuerre[this.x][this.y];
-	}
-
-	
 	public char GetCharVJoueur(int x, int y) {
 		this.x = x;
 		this.y = y;
-		return visibiliteJoueur[this.x][this.y];
+		return visibiliteJLocal[this.x][this.y];
 	}
-	
-	
-	
-	// placer le bateau à partir d'un point - A voir à rajouter un paramètre x et y //
-	public void Placer(Bateau Bat) {		
+
+	public void SetCharBDG(int x, int y, char car) {
+		brouillarDeGuerreJLocal[x][y] = car;
+	}
+
+	// Méthode pour récupérer la valeur char des cases du tableau brouillard de
+	// guerre
+	public char GetCharBDG(int x, int y) {
+		this.x = x;
+		this.y = y;
+		return brouillarDeGuerreJLocal[this.x][this.y];
+	}
+
+	public String GetTexte() {
+		return texte;
+	}
+
+	public void Placer(Bateau Bat) {
 
 		// si paramètre vertical ou horizontal //
 		if (Bateau.GetOrientation() == true) {
 			int j = Bateau.GetY();
 			for (int i = Bateau.GetX(); i < Bateau.GetTaille() + Bateau.GetX(); i++) {
-				visibiliteJoueur[i][j]='v';
+				visibiliteJLocal[i][j] = 'v';
 			}
 		} else if (Bateau.GetOrientation() == false) {
 			int i = Bateau.GetX();
 			for (int j = Bateau.GetY(); j < Bateau.GetTaille() + Bateau.GetY(); j++) {
-				visibiliteJoueur[i][j]='v';
+				visibiliteJLocal[i][j] = 'v';
 			}
-		}		
+		}
 	}
 
+	public int getNbTouche(){
+		return coupGagnant;
+	}
+	
 }

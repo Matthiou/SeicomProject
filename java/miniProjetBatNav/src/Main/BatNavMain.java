@@ -1,14 +1,14 @@
 package Main;
 
 import Controler.BatNavControler;
-import Model.BatNavModel;
+import Model.GlobalModel;
 import View.GlobalView;
 
 public class BatNavMain {
 	public static void main(String[] args) {
 		
 		/* Contient le modele */
-		BatNavModel model = new BatNavModel();
+		GlobalModel model = new GlobalModel();
 
 		/* Contient la vue */
 		GlobalView view = new GlobalView();		
@@ -20,7 +20,7 @@ public class BatNavMain {
 		controler.setModele(model);
 
 		/* Pour que le controleur connaisse la vue */
-//		controler.setVue(view);
+		//controler.setVue(view);
 
 		/* Pour que la vue connaisse le modele */
 		view.setModele(model);
